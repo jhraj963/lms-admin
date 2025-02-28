@@ -11,7 +11,7 @@
                         <div class="course-info p-3">
                             <h3 class="course-title">{{ course.title }}</h3>
                             <p class="course-description">{{ course.description }}</p>
-                            <p class="course-price">Price: ${{ course.price }}</p>
+                            <p class="course-price">Price: ৳{{ course.price }}</p>
                             <div class="course-actions">
                                 <router-link :to="`/course/edit/${course.id}`"
                                     class="btn btn-warning btn-sm mr-2">Edit</router-link>
