@@ -2,59 +2,92 @@ import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
   {
+    path: "/register",
+    alias: "/register",
+    name: "Register",
+    component: () => import("@/components/Register.vue"),
+  },
+  {
+    path: "/login",
+    alias: "/login",
+    name: "Login",
+    component: () => import("@/components/Login.vue"),
+  },
+  {
     path: "/",
-    alias: "/Dashboard",
+    alias: "/dashboard",
     name: "Dashboard",
-    component: () => import("./components/Dashboard.vue"),
+    component: () => import("@/components/Dashboard.vue"),
+    meta: { requiresAuth: true },
   },
   {
     path: "/courses",
-    alias: "/",
-    name: "courses",
-    component: () => import("./components/CourseList.vue"),
+    alias: "/courses",
+    name: "Courses",
+    component: () => import("@/components/CourseList.vue"),
+    meta: { requiresAuth: true },
   },
   {
     path: "/course/add",
-    alias: "/",
-    name: "course-add",
-    component: () => import("./components/CourseAdd.vue"),
-    props: true
+    alias: "/course/add",
+    name: "CourseAdd",
+    component: () => import("@/components/CourseAdd.vue"),
+    meta: { requiresAuth: true },
+    props: true,
   },
   {
     path: "/course/:id",
-    alias: "/",
-    name: "course-details",
-    component: () => import("./components/ModuleLecturePage.vue"),
-    props: true
+    alias: "/course/:id",
+    name: "CourseDetails",
+    component: () => import("@/components/ModuleLecturePage.vue"),
+    meta: { requiresAuth: true },
+    props: true,
   },
   {
     path: "/course/:courseId/module/add",
-    alias: "/",
-    name: "module-add",
-    component: () => import("./components/ModuleAdd.vue"),
-    props: true
+    alias: "/course/:courseId/module/add",
+    name: "ModuleAdd",
+    component: () => import("@/components/ModuleAdd.vue"),
+    meta: { requiresAuth: true },
+    props: true,
   },
   {
     path: "/course/:courseId/module/:moduleId",
-    alias: "/",
-    name: "module-lectures",
-    component: () => import("./components/LectureList.vue"),
-    props: true
+    alias: "/course/:courseId/module/:moduleId",
+    name: "ModuleLectures",
+    component: () => import("@/components/LectureList.vue"),
+    meta: { requiresAuth: true },
+    props: true,
   },
   {
     path: "/course/:courseId/module/:moduleId/lecture/add",
-    name: "lecture-add",
-    component: () => import("./components/LectureAdd.vue"),
-    props: route => ({
-        courseId: route.params.courseId,
-        moduleId: route.params.moduleId
-    })
-  }
- ];
+    alias: "/course/:courseId/module/:moduleId/lecture/add",
+    name: "LectureAdd",
+    component: () => import("@/components/LectureAdd.vue"),
+    meta: { requiresAuth: true },
+    props: (route) => ({
+      courseId: route.params.courseId,
+      moduleId: route.params.moduleId,
+    }),
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+// Navigation Guard (Authentication Check)
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem("token");
+
+  console.log("Auth Check:", isAuthenticated);
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;
