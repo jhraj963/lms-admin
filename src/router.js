@@ -36,6 +36,13 @@ const routes = [
     props: true,
   },
   {
+    path: "/course/edit/:id",
+    name: "CourseEdit",
+    component: () => import("@/components/CourseEdit.vue"),
+    meta: { requiresAuth: true },
+    props: true
+},
+  {
     path: "/course/:id",
     alias: "/course/:id",
     name: "CourseDetails",
@@ -48,6 +55,13 @@ const routes = [
     alias: "/course/:courseId/module/add",
     name: "ModuleAdd",
     component: () => import("@/components/ModuleAdd.vue"),
+    meta: { requiresAuth: true },
+    props: true,
+  },
+  {
+    path: "/courses/:courseId/modules/:moduleId/edit",
+    name: "ModuleEdit",
+    component: () => import("@/components/ModuleEdit.vue"),
     meta: { requiresAuth: true },
     props: true,
   },

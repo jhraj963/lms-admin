@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-        <h2>Add New Course</h2>
+        <h2>Edit Course</h2>
         <router-link to="/courses" class="btn btn-danger">Back To Course List</router-link>
-        <form @submit.prevent="addCourse" enctype="multipart/form-data">
+        <form @submit.prevent="updateCourse" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Title</label>
                 <input type="text" class="form-control" v-model="course.title" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Thumbnail</label>
-                <input type="file" class="form-control" @change="handleThumbnailUpload" required>
+                <input type="file" class="form-control" @change="handleThumbnailUpload">
                 <img v-if="thumbnailPreview" :src="thumbnailPreview" alt="Thumbnail Preview" class="preview-img">
             </div>
             <div class="mb-3">
@@ -20,7 +20,7 @@
                 <label class="form-label">Description</label>
                 <textarea class="form-control" v-model="course.description" required></textarea>
             </div>
-            <button type="submit" class="btn btn-success">Save Course</button>
+            <button type="submit" class="btn btn-primary">Update Course</button>
         </form>
     </div>
 </template>
@@ -37,34 +37,58 @@ export default {
                 description: "",
                 thumbnail: null
             },
-            thumbnailPreview: null
+            thumbnailPreview: null,
+            courseId: this.$route.params.id
         };
     },
+    created() {
+        this.fetchCourse();
+    },
     methods: {
+        async fetchCourse() {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get(`http://127.0.0.1:8000/api/courses/${this.courseId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                this.course = response.data;
+                this.thumbnailPreview = "http://127.0.0.1:8000" + this.course.thumbnail;
+            } catch (error) {
+                console.error("Error fetching course:", error);
+            }
+        },
         handleThumbnailUpload(event) {
             this.course.thumbnail = event.target.files[0];
             this.thumbnailPreview = URL.createObjectURL(this.course.thumbnail);
         },
-        async addCourse() {
+        async updateCourse() {
             const formData = new FormData();
             formData.append("title", this.course.title);
             formData.append("price", this.course.price);
             formData.append("description", this.course.description);
-            formData.append("thumbnail", this.course.thumbnail);
+            if (this.course.thumbnail) {
+                formData.append("thumbnail", this.course.thumbnail);
+            }
+            formData.append("_method", "PUT"); // ✅ Laravel requires this for PUT method
 
             try {
                 const token = localStorage.getItem("token");
-                await axios.post("http://127.0.0.1:8000/api/courses", formData, {
+                const response = await axios.post(`http://127.0.0.1:8000/api/courses/${this.courseId}`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "multipart/form-data"
                     }
                 });
 
-                this.$router.push("/courses"); // Redirect to course list after success
+                console.log("Update Response:", response.data); // ✅ Debugging
+
+                alert("Course updated successfully!");
+                this.$router.push("/courses");
             } catch (error) {
-                console.error("Error adding course:", error.response?.data);
-                alert("Failed to add course.");
+                console.error("Error updating course:", error.response?.data);
+                alert("Failed to update course.");
             }
         }
     }
