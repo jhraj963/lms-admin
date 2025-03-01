@@ -1,28 +1,39 @@
 <template>
     <div>
-        <router-link :to="`/course/${course.id}/module/add`" class="btn btn-primary">
-            Add New Module
-        </router-link>
-        <router-link to="/courses" class="btn btn-danger">
-            Back To Course List
-        </router-link>
+        <router-link :to="`/course/${course.id}/module/add`" class="btn btn-primary mb-4">Add New Module</router-link>
+        <router-link to="/courses" class="btn btn-danger mb-4">Back To Course List</router-link>
 
-        <h3>Course Name: {{ course.title }}</h3>
-        <h2>Module List</h2>
+        <h3 class="text-center mb-3">Course Name: {{ course.title }}</h3>
+        <h2 class="text-center mb-5">Module List</h2>
 
-        <ul>
-            <li v-for="module in modules" :key="module.id">
-                <router-link :to="`/course/${course.id}/module/${module.id}`">
-                    {{ module.title }} (Module {{ module.module_number }})
-                </router-link>
-                <router-link :to="`/courses/${course.id}/modules/${module.id}/edit`" class="btn btn-warning btn-sm">
-                    Edit
-                </router-link>
-                <button @click="deleteModule(module.id)" class="btn btn-danger btn-sm">
-                    Delete
-                </button>
-            </li>
-        </ul>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title (Click This ➡)</th>
+                        <th>Module Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="module in modules" :key="module.id">
+                        <td>{{ module.id }}</td>
+                        <td>
+                            <router-link :to="`/course/${course.id}/module/${module.id}`" class="text-decoration-none">
+                                {{ module.title }} ➡
+                            </router-link>
+                        </td>
+                        <td>{{ module.module_number }}</td>
+                        <td>
+                            <router-link :to="`/courses/${course.id}/modules/${module.id}/edit`"
+                                class="btn btn-warning btn-sm mr-2">Edit</router-link>
+                            <button @click="deleteModule(module.id)" class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -38,7 +49,6 @@ export default {
         };
     },
     created() {
-        console.log("Course ID:", this.id); // Debugging Course ID
         this.fetchData();
     },
     methods: {
@@ -49,8 +59,6 @@ export default {
 
                 const modulesResponse = await axios.get(`http://localhost:8000/api/courses/${this.id}/modules`);
                 this.modules = modulesResponse.data;
-
-                console.log("Modules:", this.modules); // Debugging Modules
             } catch (error) {
                 console.error("Error fetching data:", error.response?.data);
             }
@@ -70,3 +78,20 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.thead-dark {
+    background-color: #343a40;
+    color: white;
+}
+
+.btn-warning,
+.btn-danger {
+    margin-right: 5px;
+}
+</style>
