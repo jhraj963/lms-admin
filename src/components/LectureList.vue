@@ -6,15 +6,22 @@
         <router-link :to="`/course/${courseId}`" class="btn btn-info">
             Back To Module List
         </router-link>
-        <!-- <h3>Module Name: {{ module.title }}</h3> -->
+
         <h2>Lecture List</h2>
         <ul>
             <li v-for="lecture in lectures" :key="lecture.id">
-                🎥 {{ lecture.title }} - <a :href="lecture.video_url" target="_blank">See Video</a>
+                🎥 {{ lecture.title }} -
+                <a :href="lecture.video_url" target="_blank">See Video</a>
+
+                <!-- Show PDF download option if available -->
+                <span v-if="lecture.pdf_notes">
+                    📄 | <a :href="getPdfUrl(lecture.pdf_notes)" target="_blank" download>Download PDF</a>
+                </span>
             </li>
         </ul>
     </div>
 </template>
+
 <script>
 import axios from 'axios';
 
@@ -34,7 +41,6 @@ export default {
                 this.module = response.data;
             } catch (error) {
                 console.error("Error fetching module:", error.response?.data);
-                // alert("Failed to load module.");
             }
         },
         async fetchLectures() {
@@ -45,6 +51,9 @@ export default {
                 console.error("Error fetching lectures:", error.response?.data);
                 alert("Failed to load lectures.");
             }
+        },
+        getPdfUrl(pdfPath) {
+            return `http://localhost:8000/storage/${pdfPath}`;
         }
     }
 };
