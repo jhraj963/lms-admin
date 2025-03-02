@@ -40,7 +40,7 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await axios.post("http://localhost:8000/api/login", this.formData);
+        const response = await axios.post("https://weeblecode.com/lms/public/api/login", this.formData);
         if (response.data.data.token) {
           localStorage.setItem("token", response.data.data.token);
           localStorage.setItem("userName", JSON.stringify(response.data.data.data));
