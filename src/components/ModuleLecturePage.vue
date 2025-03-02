@@ -54,10 +54,10 @@ export default {
     methods: {
         async fetchData() {
             try {
-                const courseResponse = await axios.get(`http://localhost:8000/api/courses/${this.id}`);
+                const courseResponse = await axios.get(`https://weeblecode.com/lms/public/api/courses/${this.id}`);
                 this.course = courseResponse.data;
 
-                const modulesResponse = await axios.get(`http://localhost:8000/api/courses/${this.id}/modules`);
+                const modulesResponse = await axios.get(`https://weeblecode.com/lms/public/api/courses/${this.id}/modules`);
                 this.modules = modulesResponse.data;
             } catch (error) {
                 console.error("Error fetching data:", error.response?.data);
@@ -67,7 +67,7 @@ export default {
             if (!confirm("Are you sure you want to delete this module?")) return;
 
             try {
-                await axios.delete(`http://localhost:8000/api/courses/${this.id}/modules/${moduleId}`);
+                await axios.delete(`https://weeblecode.com/lms/public/api/courses/${this.id}/modules/${moduleId}`);
                 this.modules = this.modules.filter(module => module.id !== moduleId);
                 alert("Module deleted successfully!");
             } catch (error) {

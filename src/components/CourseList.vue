@@ -18,7 +18,7 @@
                     <tr v-for="course in courses" :key="course.id">
                         <td>{{ course.id }}</td>
                         <td>
-                            <img :src="'http://127.0.0.1:8000' + course.thumbnail" alt="Course Thumbnail"
+                            <img :src="'https://weeblecode.com/lms/public' + course.thumbnail" alt="Course Thumbnail"
                                 class="course-img" />
                         </td>
                         <td>

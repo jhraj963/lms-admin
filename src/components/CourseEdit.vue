@@ -48,13 +48,13 @@ export default {
         async fetchCourse() {
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.get(`http://127.0.0.1:8000/api/courses/${this.courseId}`, {
+                const response = await axios.get(`https://weeblecode.com/lms/public/api/courses/${this.courseId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 this.course = response.data;
-                this.thumbnailPreview = "http://127.0.0.1:8000" + this.course.thumbnail;
+                this.thumbnailPreview = "https://weeblecode.com/lms/public" + this.course.thumbnail;
             } catch (error) {
                 console.error("Error fetching course:", error);
             }
@@ -75,7 +75,7 @@ export default {
 
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.post(`http://127.0.0.1:8000/api/courses/${this.courseId}`, formData, {
+                const response = await axios.post(`https://weeblecode.com/lms/public/api/courses/${this.courseId}`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "multipart/form-data"

@@ -44,7 +44,7 @@ export default {
     methods: {
         async fetchModule() {
             try {
-                const response = await axios.get(`http://localhost:8000/api/courses/${this.courseId}/modules/${this.moduleId}`);
+                const response = await axios.get(`https://weeblecode.com/lms/public/api/courses/${this.courseId}/modules/${this.moduleId}`);
                 console.log("Fetched module data:", response.data); // Debug API response
                 if (response.data) {
                     this.module = response.data; // Ensure data is correctly assigned
@@ -55,7 +55,7 @@ export default {
         },
         async updateModule() {
             try {
-                await axios.put(`http://localhost:8000/api/courses/${this.courseId}/modules/${this.moduleId}`, this.module);
+                await axios.put(`https://weeblecode.com/lms/public/api/courses/${this.courseId}/modules/${this.moduleId}`, this.module);
                 alert("Module updated successfully!");
                 this.$router.push(`/course/${this.courseId}`);
             } catch (error) {
@@ -66,7 +66,7 @@ export default {
         async deleteModule() {
             if (confirm("Are you sure you want to delete this module?")) {
                 try {
-                    await axios.delete(`http://localhost:8000/api/courses/${this.courseId}/modules/${this.moduleId}`);
+                    await axios.delete(`https://weeblecode.com/lms/public/api/courses/${this.courseId}/modules/${this.moduleId}`);
                     alert("Module deleted successfully!");
                     this.$router.push(`/course/${this.courseId}`);
                 } catch (error) {

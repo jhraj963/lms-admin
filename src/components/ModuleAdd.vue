@@ -40,7 +40,7 @@ export default {
                 return;
             }
             try {
-                await axios.post(`http://localhost:8000/api/courses/${this.courseId}/modules`, {
+                await axios.post(`https://weeblecode.com/lms/public/api/courses/${this.courseId}/modules`, {
                     title: this.title,
                     module_number: this.module_number
                 });

@@ -55,7 +55,7 @@ export default {
 
             try {
                 const response = await axios.post(
-                    `http://localhost:8000/api/courses/${this.courseId}/modules/${this.moduleId}/lectures`,
+                    `https://weeblecode.com/lms/public/api/courses/${this.courseId}/modules/${this.moduleId}/lectures`,
                     formData,
                     {
                         headers: {
