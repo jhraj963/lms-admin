@@ -69,7 +69,7 @@ export default {
             }
         },
         getPdfUrl(pdfPath) {
-            return `https://weeblecode.com/lms/storage/${pdfPath}`;
+            return `https://weeblecode.com/lms/storage/app/public/${pdfPath}`;
         }
     }
 };
