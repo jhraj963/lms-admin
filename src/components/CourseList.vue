@@ -56,7 +56,7 @@ export default {
         async fetchCourses() {
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.get("http://localhost:8000/api/courses", {
+                const response = await axios.get("https://weeblecode.com/lms/public/api/courses", {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -70,7 +70,7 @@ export default {
             if (confirm("Are you sure you want to delete this course?")) {
                 try {
                     const token = localStorage.getItem("token");
-                    await axios.delete(`http://localhost:8000/api/courses/${id}`, {
+                    await axios.delete(`https://weeblecode.com/lms/public/api/courses/${id}`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }

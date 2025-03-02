@@ -54,7 +54,7 @@ export default {
                     }
                 });
                 this.course = response.data;
-                this.thumbnailPreview = "https://weeblecode.com/lms/public" + this.course.thumbnail;
+                this.thumbnailPreview = "https://weeblecode.com/lms/public/api" + this.course.thumbnail;
             } catch (error) {
                 console.error("Error fetching course:", error);
             }
