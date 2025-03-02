@@ -16,6 +16,10 @@
               placeholder="Enter a password" />
           </div>
           <button type="button" @click="login" class="btn btn-primary w-100">Submit</button>
+          <div class="mb-3 text-dark">
+            Not Registered? Click Here To
+            <a href="/Register" class="btn btn-success">Register</a>
+          </div>
         </form>
       </div>
     </div>

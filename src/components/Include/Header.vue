@@ -7,13 +7,13 @@
         <h2 class="font-weight-bolder mb-0">(LMS) Admin Panel</h2>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+        <!-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           <div class="input-group input-group-outline">
             <label class="form-label">Type here...</label>
             <input type="text" class="form-control">
           </div>
-        </div>
-        <ul class="navbar-nav justify-content-end">
+        </div> -->
+        <ul class="ms-md-auto pe-md-3 d-flex align-items-center">
           <li class="nav-item px-3 d-flex align-items-center">
             <!-- 🔹 Show Sign Out if Logged In -->
             <button v-if="isLoggedIn" @click="signOut" class="btn btn-danger btn-sm">Sign Out</button>

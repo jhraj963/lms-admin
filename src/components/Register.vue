@@ -52,6 +52,11 @@
                         <span v-if="loading">Registering...</span>
                         <span v-else>Register</span>
                     </button>
+                    <div class="mb-3 text-dark">
+                        Already Registered? Click Here To
+                        <a href="/login" class="btn btn-warning">Login</a>
+                    </div>
+
                 </form>
             </div>
         </div>
