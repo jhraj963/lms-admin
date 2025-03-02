@@ -16,7 +16,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://weeblecode.com/eshopper/public/api", // Replace with your actual API base URL
+  baseURL: "https://weeblecode.com/lms/public/api", // Replace with your actual API base URL
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${sessionStorage.getItem("token")}`, // Add token if available
